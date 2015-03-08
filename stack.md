@@ -4,6 +4,7 @@ pretty much the only thing i'm 100% on with this project is Node.js - i don't re
 everything else is up for discussion. here are what i can imagine we will need:
 
 
+- license   ISC
 - host		no clue. aws maybe? i've got an account but no server. it costs me fifty cents a month for nothing, and idk what a server would cost
 - repo		github -- i can't think of a reason to use anything else
 - tasks		github issues
@@ -32,4 +33,37 @@ everything else is up for discussion. here are what i can imagine we will need:
 			- web		?
 		- text
 
-- www		static site for github
+- www		static site for github until the app works to the point it can take over
+
+
+# decided
+at least for the short term, we've decided to move forward using these elements
+
+- license   ISC
+- host  
+- repo  github
+- tasks github issues
+
+- build 
+- tests 
+
+- persistence   redis
+- data  
+- file  
+- config    
+- http  
+- framework express
+- modules   
+- logging   
+- admin 
+	- users 
+- api   
+- client    
+	- views
+		- html  handlebars
+		- json  JSON
+		- mobile    cordova
+		- text  handlebars
+
+- www	
+
