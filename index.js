@@ -2,6 +2,9 @@ var express = require( 'express' );
 var config = require( './conf' );
 var app = express();
 
+app.set( config )
+app.locals.config = config;
+
 var Session = require( 'express-session' );
 var session = Session( config.session );
 app.use( session );
