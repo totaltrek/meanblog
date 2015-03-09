@@ -32,3 +32,6 @@ node_modules
 
 # editors
 .c9
+
+# Local development config
+conf/local.*
