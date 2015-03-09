@@ -2,57 +2,67 @@ var fs = require( 'fs' ),
 	path = require( 'path' ),
 	lib = require( '../lib' ),
 	files = {
-		all: fs.readDirSync( './' ),
+		all: fs.readdirSync( __dirname ),
 		defaults: [],
-		locals: []
+		locals: [],
+		others: []
 	},
 	confs = {
 		defaults: {},
 		locals: {},
-		result: {}
-	};
+		others: {}
+	}
+	config = {};
 
-files.all.filter( isConf );
-files.local = [].splice.call( files.all ).filter( isLocal );
-files.defaults = [].splice.call( files.all ).filter( isNotLocal );
+files.all = files.all.filter( valid );
+
+files.locals = [].slice.call( files.all ).filter( isLocal );
+files.defaults = [].slice.call( files.all ).filter( isDefault );
+files.others = [].slice.call( files.all ).filter( isOther );
 
 files.defaults.forEach( read( confs.defaults ) );
-files.local.forEach( read( confs.locals ) );
+files.locals.forEach( read( confs.locals ) );
+files.others.forEach( read( confs.others ) );
 
-confs.result = lib.cloneDeep( {}, confs.local );
-confs.result = lib.cloneDeep( confs.result, confs.defaults );
+config = lib.extend( config, confs.defaults );
+config = lib.extend( config, confs.others );
+config = lib.extend( config, confs.locals );
 
-function isConf ( file ) {
+function allTrue( bool ) {
+	return bool;
+}
+
+function valid ( file ) {
 	var checks = [
 			file.split( '.' ).length > 0,
 			file != 'index.js',
 			file.charAt( 0 ) != '.'
 		];
-	return checks.all( allTrue );
-}
-
-function allTrue( bool ) {
-	return bool;
+	return checks.every( allTrue );
 }
 
 function isLocal( file ) {
 	return file.indexOf( 'local.' ) === 0;
 }
 
-function isNotLocal( file ) {
-	return !isLocal( file );
+function isDefault( file ) {
+	return file.indexOf( 'default.' ) === 0;
+}
+
+function isOther ( file  ) {
+	return files.locals.indexOf( file ) === -1 && files.defaults.indexOf( file ) === -1;
 }
 
 function read( conf ) {
 	return function ( file ) {
-		conf[ file ] = require( path.resolve( './' + file ) );
+		var scope = file.split( '.' );
+		scope.pop(); /* dispose of extension */
+		if ( !isOther( file ) ) {
+			scope = scope.slice( 1 ); /* dispose of local. or default. */
+		}
+		scope = scope.join( '.' );
+		conf[ scope ] = require( path.join( __dirname, path.sep, file ) );
 	};
 }
 
-function clone ( into ) {
-	function _clone () {
-		_clone( )
-	}
-}
-
-module.exports = confs.result;
+module.exports = config;
