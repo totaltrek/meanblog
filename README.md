@@ -23,29 +23,33 @@ I hope you're intrigued enough to investigate. After you do, I hope you're jazze
 
 # config
 drop your config files into conf/ and they'll be hooked automatically into app.locals.config
+
 config files can be anything parsed by require(): .js, .json, .node
+
 config files may have a prefix of local. to be ignored by git
+
 config files may have a prefix of default. to be loaded before the non-prefixed
 example:
- - default.server.js
- ```
- { a: 1, b: 2, c: 3 }
- ```
- - server.js
- ```
- { b: 4 }
- ```
- - local.server.js
- ```
- { b: 5, c: 6 }
- ```
-should result in app.locals.config = { a: 1, b: 5, c: 6 };
+
+default.server.js
+```{ a: 1, b: 2, c: 3 }```
+
+server.js
+```{ b: 4 }```
+
+local.server.js
+```{ b: 5, c: 6 }```
+
+should result in
+```app.locals.config = { a: 1, b: 5, c: 6 };``
 
 all default files are loaded first
+
 all local files are loaded last
 
 store your module conf as modulename.js/.json/.node and get it out with app.locals.config.modulename
 
 #lib
 drop your lib files into lib/ and they'll be hooked automatically whenever you require( './lib' )
+
 consider rewriting any lib file or group of them as a full node module for npm to manage.
