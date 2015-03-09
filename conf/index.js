@@ -1,4 +1,4 @@
-var fs = require( 'filesystem' ),
+var fs = require( 'fs' ),
 	path = require( 'path' ),
 	lib = require( '../lib' ),
 	files = {
