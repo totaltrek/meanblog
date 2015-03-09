@@ -1,0 +1,8 @@
+{
+    "cookie": {
+        "secure": "false"
+    },
+    "secret": "meanblogfolk",
+    "saveUninitialized": "false",
+    "resave": "false"
+}
