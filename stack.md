@@ -45,7 +45,7 @@ at least for the short term, we've decided to move forward using these elements
 - tasks github issues
 
 - build 
-- tests 
+- tests mocha?
 
 - persistence   redis
 - data  
