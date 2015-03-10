@@ -11,7 +11,7 @@ var fs = require( 'fs' ),
 		defaults: {},
 		locals: {},
 		others: {}
-	}
+	},
 	config = {};
 
 files.all = files.all.filter( valid );
