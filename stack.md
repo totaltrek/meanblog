@@ -44,7 +44,7 @@ at least for the short term, we've decided to move forward using these elements
 - repo  github
 - tasks github issues
 
-- build 
+- build grunt?
 - tests mocha?
 
 - persistence   redis
